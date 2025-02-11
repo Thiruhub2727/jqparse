@@ -1,20 +1,16 @@
-name: Extract from Local JSON File
+name: Extract All Items from JSON Object Array
 
 on: workflow_dispatch
 
 jobs:
-  extract-json:
+  extract-json-array:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4  # Pulls the repo into the runner
-
       - name: Create JSON File
-        run: |
-          echo '{"app": "MyApp", "version": "2.5.1"}' > config.json
+        run: echo '{"users": [{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}, {"id": 3, "name": "Charlie"}]}' > users.json
 
-      - name: Extract App Name
+      - name: Extract Names using jq
         run: |
-          APP_NAME=$(cat config.json | jq -r '.app')
-          echo "App Name: $APP_NAME"
+          NAMES=$(jq -r '.users[].name' users.json)
+          echo "Extracted User Names:"
+          echo "$NAMES"
