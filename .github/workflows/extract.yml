@@ -1,0 +1,20 @@
+name: Extract from Local JSON File
+
+on: workflow_dispatch
+
+jobs:
+  extract-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Pulls the repo into the runner
+
+      - name: Create JSON File
+        run: |
+          echo '{"app": "MyApp", "version": "2.5.1"}' > config.json
+
+      - name: Extract App Name
+        run: |
+          APP_NAME=$(cat config.json | jq -r '.app')
+          echo "App Name: $APP_NAME"
