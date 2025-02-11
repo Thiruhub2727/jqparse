@@ -7,10 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create JSON File
-        run: echo '{"users": [{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}, {"id": 3, "name": "Charlie"}]}' > users.json
+        run: echo '{ "users": [ { "id": 1, "name": "Alice" }, { "id": 2, "name": "Bob" }, { "id": 3, "name": "Charlie" } ] }' > users.json
 
       - name: Extract Names using jq
         run: |
           NAMES=$(jq -r '.users[].name' users.json)
           echo "Extracted User Names:"
           echo "$NAMES"
+
