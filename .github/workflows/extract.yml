@@ -8,20 +8,18 @@ jobs:
     steps:
       - name: Create JSON File
         run: |
-         cat > users.json <<EOF 
-  {
-    "users": [
-      { "id": 1, "name": "Alice" },
-      { "id": 2, "name": "Bob" },
-      { "id": 3, "name": "Charlie" }
-    ]
-  }
-  EOF
-
+          cat > users.json <<EOF
+          {
+            "users": [
+              { "id": 1, "name": "Alice" },
+              { "id": 2, "name": "Bob" },
+              { "id": 3, "name": "Charlie" }
+            ]
+          }
+          EOF
 
       - name: Extract Names using jq
         run: |
           NAMES=$(jq -r '.users[].name' users.json)
           echo "Extracted User Names:"
           echo "$NAMES"
-
